@@ -3,7 +3,7 @@
 1. git clone git@github.com:jpgninja/arbys.git *(clones the repo)*
 1. cd arbys && npm install *(sets up and installs the project)*
 1. npm start *(starts server)*
-1. Visit http://localhost:3000 in your browser *(let the games begin)*
+1. Visit [http://localhost:3000](http://localhost:3000) in your browser *(let the games begin)*
 
 Description
 ---
