@@ -1,19 +1,59 @@
-// var Poloniex = require('poloniex/poloniex.js');
+var Promise = require('bluebird');
+var KrakenClient = require('kraken-api');
+var Poloniex = Promise.promisifyAll(require('poloniex.js'));
+
+// Promise.promisifyAll(require('poloniex.js'));
+// var kraken = new KrakenClient('api_key', 'api_secret');
 
 
-exports.get = function(id, cb) {
 
-// var poloniex = new Poloniex();
 
-//     poloniex.getTicker(function(err, data){
-//         if (err){
-//             // handle error
-//         }
+/**
+ * Ping exchanges, get ticker values
+ */
+exports.getTickers = function(exchange, cb) {
+  var poloniex = new Poloniex();
 
-//         console.log(data);
-//         // cb(null, data);
-//     });
+  // poloniex.getTicker().then(function(val) {
+  //   console.log(val);
+  // })
+  // .catch(function(e) {
+  //   console.error("Egads! Error.");
+  // });
 
+  poloniex.getTicker(function(err, res){
+    if (err) {
+      console.error('error!');
+    }
+    else {
+      cb(null, res.BTC_ETH);
+    }
+  });
+}
+
+
+/**
+ * Return
+ */
+exports.getPoloniexTicker = function() {
+  var poloniex = new Poloniex();
+
+  poloniex.getTicker(function(err, res){
+    if (err){
+      // handle error
+      console.log('error!');
+    }
+    
+    // console.log(res.BTC_ETH);
+    return res.BTC_ETH;
+  });
+}
+
+
+/**
+ * Get dummy data
+ */
+exports.dummy = function(id, cb) {
   var docs = {
     kraken: [
       [10, Math.random()-0.5],

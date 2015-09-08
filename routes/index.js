@@ -1,17 +1,12 @@
 var express = require('express');
-// var Poloniex = require('poloniex/poloniex.js');
-// var autobahn = require('autobahn');
-var Poloniex = require('../models/index');
+var Exchange = require('../models/index');
 var router = express.Router();
-
-// Poloniex.STRICT_SSL = false;
-// var poloniex = new Poloniex();
 
 
 /**
  * Users routes
  */
-router.use('/users', require('./users'))
+// router.use('/users', require('./users'))
 
 
 
@@ -23,17 +18,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/update', function(req, res, next) {
-  // Poloniex.get(function (err, docs) {
-    Poloniex.getWeatherResults(function(err, result){
-      if(result != undefined){
-        model.data.push(result);  
-        callback();
-      }else{
-        callback();
-      }
-    });
-    res.json(model);
-  // })
+
+  Exchange.getTickers(1, function(err, result){
+    if(result != undefined) {
+      res.json(result);
+    }
+    else {
+      console.error('Egads! Error.');
+      return false;
+    }
+  });
 })
 
 
