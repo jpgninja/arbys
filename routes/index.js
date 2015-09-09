@@ -15,12 +15,12 @@ var router = express.Router();
 
 router.get('/', function(red, res, next) {
 
-  Promise.try(function(){
+  Promise.try(function() {
       return updateData();
-  }).then(function(value){
+  }).then(function(value) {
     console.log('Passed as a Promise to the router:\r\n\r\n', value, '\r\n\r\n');
     res.render('index', { value: value } );
-  }).catch(function(err){
+  }).catch(function(err) {
       next(err);
   });
 
@@ -28,7 +28,7 @@ router.get('/', function(red, res, next) {
 
 router.get('/update', function(req, res, next) {
 
-  updateData().then(function(exchangeData){
+  updateData().then(function(exchangeData) {
     console.log('json', exchangeData);
     res.json(exchangeData);
   });
