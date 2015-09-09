@@ -1,6 +1,5 @@
 var Promise = require('bluebird');
 var Poloniex = require('poloniex.js');
-// var KrakenClient = require('kraken-api');
 
 // Promise.promisifyAll(Poloniex);
 Poloniex.STRICT_SSL = false;
