@@ -1,6 +1,7 @@
 var express = require('express');
 var Promise = require('bluebird');
-var updateData = require('../utils/updateExchanges');
+var updatePoloniex = require('../utils/updatePoloniex');
+var updateKraken = require('../utils/updateKraken');
 var router = express.Router();
 
 // var Exchange = require('../models/index');
@@ -14,14 +15,21 @@ var router = express.Router();
 // router.use('/users', require('./users'))
 
 router.get('/', function(red, res, next) {
+  var exchangeData = {};
 
   Promise.try(function() {
-      return updateData();
+    return updatePoloniex();
   }).then(function(value) {
-    console.log('Passed as a Promise to the router:\r\n\r\n', value, '\r\n\r\n');
-    res.render('index', { value: value } );
+    console.log('Poloniex -> Router:\r\n\r\n', value, '\r\n\r\n');
+    exchangeData.poloniex = value;
+    
+    return updateKraken();
+    // res.render('index', { value: value } );
+  }).then(function(value) {
+    console.log('Kraken -> Router:\r\n\r\n', value, '\r\n\r\n');
+    res.render('index', { exchangeData: exchangeData } );
   }).catch(function(err) {
-      next(err);
+    next(err);
   });
 
 });
