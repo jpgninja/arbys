@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     // Populate the user table on initial page load
-    populateTable();
+    // populateTable();
 
 });
 
@@ -14,7 +14,8 @@ function populateTable() {
     var tableContent = '';
 console.log('yo!');
     // jQuery AJAX call for JSON
-    $.getJSON( '/update', function( data ) {
+    // $.getJSON( '/update', function( data ) {
+    $.getJSON( '/updatetest', function( data ) {
 
     	var kraken,
     		poloniex;
@@ -23,7 +24,7 @@ console.log(data);
         poloniex += '<tr>';
         poloniex += '<td class="amount">' + data.last + '</td>';
         poloniex += '<td class="spread">' + parseInt((data.last * 100), 10) + '%</td>';
-        poloniex += '<td class="trade"><a href="#" data-amount="' + data.last + '" data-spread="' + data.last + '">Trade</a></td>';
+        poloniex += '<td class="trade"><a href="#" data-amount="' + data.last + '" data-spread="' + data.last + '"></a></td>';
         poloniex += '</tr>';
 
         // For each item in our JSON, add a table row and cells to the content string

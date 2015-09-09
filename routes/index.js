@@ -1,6 +1,11 @@
 var express = require('express');
-var Exchange = require('../models/index');
+var Promise = require('bluebird');
+var updateData = require('../utils/updateExchanges');
 var router = express.Router();
+
+// var Exchange = require('../models/index');
+// Promise.promisifyAll(require('fs'));
+// var Poloniex = Promise.promisifyAll(require('poloniex.js'));
 
 
 /**
@@ -13,21 +18,45 @@ var router = express.Router();
 /**
  * App routes
  */
-router.get('/', function(req, res, next) {
-  res.render('index', {});
+// router.get('/', function(req, res, next) {
+//   res.render('index', {});
+// });
+
+
+router.get('/', function(red, res, next) {
+
+  Promise.try(function(){
+      return updateData();
+  }).then(function(value){
+    console.log('Passed as a Promise to the router:\r\n\r\n', value, '\r\n\r\n');
+    res.render('index', { value: value } );
+  }).catch(function(err){
+      next(err);
+  });
+
 });
 
 router.get('/update', function(req, res, next) {
 
-  Exchange.getTickers(1, function(err, result){
-    if(result != undefined) {
-      res.json(result);
-    }
-    else {
-      console.error('Egads! Error.');
-      return false;
-    }
+  updateData().then(function(exchangeData){
+    console.log('json', exchangeData);
+    res.json(exchangeData);
   });
+
+  // return;
+
+  /** 
+   * Working.
+   */
+  // Exchange.getTickers(function(err, result){
+  //   if(result != undefined) {
+  //     res.json(result);
+  //   }
+  //   else {
+  //     console.error('Egads! Error.');
+  //     return false;
+  //   }
+  // });
 })
 
 

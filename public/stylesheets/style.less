@@ -69,7 +69,7 @@ table.spreads {
       width:200px;
       background-color:#e0e0e0;
       &.trade {
-        width:80px;
+        width:30px;
         background-color: transparent;
       }
     }
@@ -87,19 +87,36 @@ table.spreads {
       padding:10px;
       border:1px solid #f0f0f0;
       &.trade {
-        width:80px;
-        text-align: center;
-        padding:5px 10px;
+        
+        // text-align: center;
+        padding:3px 10px;
         margin:0;
         border:none;
         a {
-          display:block;  
-          padding:10px 20px;
+          // width:30px;
+          display:inline-block;
+          overflow:hidden;
+          width:30px;
+          height:30px;
+          border-radius: 15px;
+          line-height:30px;
+          padding:0;
           text-decoration: none;
-          color:#337ab7;
+          color:#ccc;
+          transition: all 0.2s ease;
+          &:before {
+            content: '✔';
+          }
           &:hover {
             background:#eaeaea;
+            color:#337ab7;
+            // width:75px;
             // color:#fff;
+            -webkit-transform: rotate(360deg);
+            &:before {
+              // padding-right:10px;
+              // color:#ccc;
+            }
           }
         }
         &:hover {
