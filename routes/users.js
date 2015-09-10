@@ -13,9 +13,4 @@ router.use(function (req, res, next) {
   }
 })
 
-// Secret animals page
-router.get('/secret', function(req, res) {
-  res.send('Wolf, Fox, Eagle')
-})
-
 module.exports = router

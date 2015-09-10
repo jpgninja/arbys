@@ -1,47 +1,54 @@
 var express = require('express');
 var Promise = require('bluebird');
-var updatePoloniex = require('../utils/updatePoloniex');
-var updateKraken = require('../utils/updateKraken');
+var testUtil = require('../utils/testUtil');
 var router = express.Router();
-
-// var Exchange = require('../models/index');
-// Promise.promisifyAll(require('fs'));
-// var Poloniex = Promise.promisifyAll(require('poloniex.js'));
 
 
 /**
- * Users routes
+ * Various routes
  */
-// router.use('/users', require('./users'))
+router.use('/book', require('./book'));
 
+
+/**
+ * Main routes
+ */
 router.get('/', function(red, res, next) {
   var exchangeData = {};
 
   Promise.try(function() {
     return updatePoloniex();
-  }).then(function(value) {
-    console.log('Poloniex -> Router:\r\n\r\n', value, '\r\n\r\n');
-    exchangeData.poloniex = value;
-    
-    return updateKraken();
-    // res.render('index', { value: value } );
-  }).then(function(value) {
-    console.log('Kraken -> Router:\r\n\r\n', value, '\r\n\r\n');
-    res.render('index', { exchangeData: exchangeData } );
-  }).catch(function(err) {
-    next(err);
-  });
 
+  }).then(function(poloniexData) {
+    exchangeData.poloniex = poloniexData;
+    return updateKraken();
+
+  }).then(function(krakenData) {
+    exchangeData.kraken = krakenData;
+    return exchangeData;
+
+  }).then(function(exchangeData) {
+    res.render('index', { exchange: exchangeData });
+
+  });
 });
 
-router.get('/update', function(req, res, next) {
 
-  updateData().then(function(exchangeData) {
-    console.log('json', exchangeData);
-    res.json(exchangeData);
-  });
+// router.get('/test', function(red, res, next) {
+//   Promise.try(function() {
+//     return testUtil();
+//   }).then(function(orderBook) {
+//     res.render('orderbook', { orderBook: orderBook });
+//   });
+// });
 
-})
-
+// router.get('/list', function(red, res, next) {
+//   Example:
+//   Market1(fixed fee: 1, variable fee: 2%, BBO: 105/107), 
+//   Market2(fixed fee: 0.5, variable fee 1%, BBO: 98/100)
+//   Variable Fees: Buy asset at M2 for (100 + 1) and sell to M1 for (105-2.1)
+//   PnL with fixed fees applied: (105-0.5) - (100+1)
+//   Apply same logic to all markets and chose the most profitable one.
+// });
 
 module.exports = router;

@@ -1,0 +1,73 @@
+extends layout
+
+
+block content
+  h1 Poloniex Order Book
+
+  div.row
+    div.col-md-6
+      h3 Asks
+
+      table.asks
+        thead
+          tr
+            th Price
+            th ETH
+            th Total
+        tbody
+        each val in orderBook.poloniex.asks
+          tr
+            td= val[0]
+            td= val[1]
+            td= val[2]
+
+    div.col-md-6
+      h3 Bids
+
+      table.bids
+        thead
+          tr
+            th Price
+            th ETH
+            th Total
+        tbody
+        each val in orderBook.poloniex.bids
+          tr
+            td= val[0]
+            td= val[1]
+            td= val[2]
+
+  h1 Kraken Order Book
+
+  div.row
+    div.col-md-6
+      h3 Asks
+
+      table.asks
+        thead
+          tr
+            th Price
+            th ETH
+            th Total
+        tbody
+        each val in orderBook.kraken.asks
+          tr
+            td= val[0]
+            td= val[1]
+            td= val[2]
+
+    div.col-md-6
+      h3 Bids
+
+      table.bids
+        thead
+          tr
+            th Price
+            th ETH
+            th Total
+        tbody
+        each val in orderBook.kraken.bids
+          tr
+            td= val[0]
+            td= val[1]
+            td= val[2]

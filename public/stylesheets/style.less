@@ -1,8 +1,10 @@
+@headerHeight: 50px;
 
 body {
   padding:0 50px;
   margin:0;
   font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-bottom:250px;
 }
 
 a {
@@ -12,15 +14,17 @@ a {
 
 #header {
   background:#333;
-  overflow:hidden;
+  overflow:auto;
   margin-bottom:50px;
   color:#ddd;
+  height:@headerHeight;
   h1 {
     font-size:16px;
     float:left;
-    line-height:16px;
+    height:@headerHeight;
+    line-height:@headerHeight;
     margin:0;
-    padding:10px 20px;
+    padding:0 20px;
     a {
       color:#fff;
       &:hover {
@@ -41,13 +45,29 @@ a {
     li {
       float:left;
       a {
-        padding:10px 20px;
+        padding:0 20px;
+        height:@headerHeight;
+        line-height:@headerHeight;
         display:block;
         color:#ddd;
         text-decoration: none;
         &:hover {
           color:#fff;
           background:#666;
+        }
+      }
+      ul {
+        display:none;
+        background-color: #333;
+      }
+      &:hover {
+        ul {
+          display:block;
+          position:absolute;
+          margin-bottom:-@headerHeight;
+          li {
+            float:none;
+          }
         }
       }
     }
@@ -60,7 +80,9 @@ a {
   width:40%;
   text-align: center;
 }
-table.spreads {
+table.spreads,
+table.asks,
+table.bids {
   width:100%;
   thead {
     
@@ -71,6 +93,7 @@ table.spreads {
       &.trade {
         width:30px;
         background-color: transparent;
+        display:none;
       }
     }
   }
@@ -92,6 +115,7 @@ table.spreads {
         padding:3px 10px;
         margin:0;
         border:none;
+        display:none;
         a {
           // width:30px;
           display:inline-block;

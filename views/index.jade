@@ -14,7 +14,7 @@ block content
           th.trade &nbsp;
         tbody
           tr
-            td.amount 10
+            td.amount= exchange.kraken.l[1]
             td.spread 0%
             td.trade 
               a(href="#").btn.btn-sm
@@ -52,7 +52,7 @@ block content
           th.trade &nbsp;
         tbody
           tr
-            td.amount= exchangeData
+            td.amount= exchange.poloniex.last
             td.spread 0%
             td.trade 
               a(href="#").btn.btn-sm
